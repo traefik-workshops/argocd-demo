@@ -2,14 +2,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: httpbin-proxy
+  name: dashboard-route
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: https://github.com/traefik-workshops/argocd-demo.git
     targetRevision: HEAD
-    path: resources/proxy/httpbin
+    path: resources/api-gateway
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik

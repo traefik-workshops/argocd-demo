@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,16 +9,24 @@ spec:
   source:
     chart: grafana
     repoURL: https://grafana.github.io/helm-charts
-    targetRevision: 8.3.6
+    targetRevision: 8.10.4
     helm:
       values: |
-        adminPassword: topsecretpassword
         datasources:
           datasources.yaml:
             apiVersion: 1
             datasources:
               - name: Prometheus
                 type: prometheus
+        grafana.ini:
+          users:
+            viewers_can_edit: false
+          auth:
+            disable_login_form: false
+            disable_signout_menu: false
+          auth.anonymous:
+            enabled: true
+            org_role: Viewer
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik

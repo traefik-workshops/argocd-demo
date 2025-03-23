@@ -6,21 +6,21 @@ This repository contains a GitOps-based setup for Traefik API Gateway with obser
 
 ```
 .
-├── apps/                           # ArgoCD Applications
+├── apps/                          # ArgoCD Applications
 │   ├── api-gateway/               # API Gateway related applications
 │   ├── api-management/            # API Management related applications
 │   ├── apps/                      # Application deployments
 │   ├── observability/             # Observability stack applications
-│   │   ├── grafana/              # Grafana deployment
-│   │   ├── prometheus/           # Prometheus deployment
-│   │   └── tempo/                # Tempo deployment
+│   │   ├── grafana/               # Grafana deployment
+│   │   ├── prometheus/            # Prometheus deployment
+│   │   └── tempo/                 # Tempo deployment
 │   ├── proxy/                     # Proxy configurations
-│   └── traefik.yaml              # Main Traefik deployment
+│   └── traefik.yaml               # Traefik deployment
 └── resources/                     # Kubernetes resources
-    ├── api-gateway/              # API Gateway resources
-    ├── api-management/           # API Management resources
-    ├── apps/                     # Application resources
-    └── proxy/                    # Proxy resources
+    ├── api-gateway/               # API Gateway resources
+    ├── api-management/            # API Management resources
+    ├── apps/                      # Application resources
+    └── proxy/                     # Proxy resources
 
 ```
 
@@ -59,7 +59,7 @@ This repository contains a GitOps-based setup for Traefik API Gateway with obser
 5. Apply the applications:
    ```bash
    # Apply all applications in the apps directory
-   kubectl apply -f apps/
+   kubectl apply -R -f apps/
    ```
 
 ## Components

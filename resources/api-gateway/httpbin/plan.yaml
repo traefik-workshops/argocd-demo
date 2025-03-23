@@ -3,7 +3,6 @@ apiVersion: hub.traefik.io/v1alpha1
 kind: APIPlan
 metadata:
   name: httpbin-plan
-  namespace: traefik
 spec:
   title: "Standard Plan"
   description: "**Standard Plan with rate limits and quotas**"

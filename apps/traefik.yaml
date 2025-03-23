@@ -1,3 +1,4 @@
+---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -8,19 +9,18 @@ spec:
   source:
     chart: traefik
     repoURL: https://traefik.github.io/charts
-    targetRevision: latest
+    targetRevision: 34.4.1
     helm:
       values: |
         hub:
           token: traefik-hub-license
           apimanagement:
             enabled: true
-        ingressRoute:
-          dashboard:
-            enabled: true
-            matchRule: Host(`localhost`)
-            entryPoints:
-              - web
+        service:
+          type: ClusterIP
+        providers:
+          kubernetesCRD:
+            allowExternalNameServices: true
         image:
           registry: ghcr.io
           repository: traefik/traefik-hub
