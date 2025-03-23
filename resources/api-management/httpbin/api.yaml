@@ -1,0 +1,50 @@
+---
+apiVersion: hub.traefik.io/v1alpha1
+kind: API
+metadata:
+  name: httpbin
+spec:
+  title: "Hello API"
+  description: "A simple API for greeting users."
+  openApiSpec:
+    url: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.yaml
+    override:
+      servers:
+        - url: http://localhost:8000/httpbingo
+---
+apiVersion: hub.traefik.io/v1alpha1
+kind: APIBundle
+metadata:
+  name: httpbin-bundle
+  namespace: traefik
+spec:
+  apis:
+    - name: httpbin
+---
+apiVersion: hub.traefik.io/v1alpha1
+kind: APICatalogItem
+metadata:
+  name: httpbin-catalog-item
+  namespace: traefik
+spec:
+  groups:
+    - external
+  apiBundles:
+    - name: httpbin-bundle
+  apiPlan:
+    name: httpbin-plan
+---
+apiVersion: hub.traefik.io/v1alpha1
+kind: ManagedSubscription
+metadata:
+  name: httpbin-subscription
+  namespace: traefik
+spec:
+  applications:
+    - appId: "httpbin-app-1"
+    - appId: "httpbin-app-2"
+  apiBundles:
+    - name: httpbin-bundle
+  apiPlan:
+    name: httpbin-plan
+  weight: 100

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: httpbin-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/traefik-workshops/argocd-demo.git
+    targetRevision: HEAD
+    path: resources/apps/httpbin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

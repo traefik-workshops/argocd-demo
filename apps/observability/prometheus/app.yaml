@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: prometheus
+    repoURL: https://prometheus-community.github.io/helm-charts
+    targetRevision: 25.24.1
+    helm:
+      values: |
+        serverFiles:
+          prometheus.yml:
+            scrape_configs:
+              - job_name: traefik
+                metrics_path: /metrics
+                static_configs:
+                  - targets:
+                    - traefik-metrics.traefik.svc:9100
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

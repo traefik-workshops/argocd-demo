@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: traefik
+    repoURL: https://traefik.github.io/charts
+    targetRevision: latest
+    helm:
+      values: |
+        hub:
+          token: traefik-hub-license
+          apimanagement:
+            enabled: true
+        ingressRoute:
+          dashboard:
+            enabled: true
+            matchRule: Host(`localhost`)
+            entryPoints:
+              - web
+        image:
+          registry: ghcr.io
+          repository: traefik/traefik-hub
+          tag: v3
+        metrics:
+          prometheus:
+            service:
+              enabled: true
+        logs:
+          access:
+            enabled: true
+        tracing:
+          otlp:
+            enabled: true
+            grpc:
+              enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
