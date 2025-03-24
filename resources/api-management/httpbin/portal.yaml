@@ -18,10 +18,11 @@ metadata:
   annotations:
     hub.traefik.io/api-portal: httpbin-portal
 spec:
+  entryPoints:
+    - apiportal
   routes:
   - match: PathPrefix(`/portal`)
     kind: Rule
     services:
     - name: apiportal
       port: 9903
-      

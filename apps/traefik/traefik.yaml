@@ -40,6 +40,8 @@ spec:
             enabled: true
             grpc:
               enabled: true
+        additionalArguments:
+        - --entryPoints.apiportal.address=:9999
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik
