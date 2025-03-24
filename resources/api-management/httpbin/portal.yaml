@@ -7,7 +7,7 @@ spec:
   title: "HTTPBin Portal"
   description: "API documentations"
   trustedUrls:
-    - "http://localhost:9903"
+    - "http://localhost:9999"
   ui:
     logoUrl: https://traefik.io/favicon.png
 ---
