@@ -21,7 +21,7 @@ spec:
   entryPoints:
     - apiportal
   routes:
-  - match: PathPrefix(`/portal`)
+  - match: PathPrefix(`/`)
     kind: Rule
     services:
     - name: apiportal
