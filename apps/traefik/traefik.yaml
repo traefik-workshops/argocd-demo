@@ -16,6 +16,9 @@ spec:
           token: traefik-hub-license
           apimanagement:
             enabled: true
+          redis:
+            endpoints: "redis-master.traefik.svc:6379"
+            password: "topsecretpassword"
         service:
           type: ClusterIP
         providers:
