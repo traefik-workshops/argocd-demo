@@ -17,7 +17,8 @@ spec:
           apimanagement:
             enabled: true
           redis:
-            endpoints: "redis-master.traefik.svc:6379"
+            endpoints: "redis-redis-cluster.traefik.svc:6379"
+            cluster: true
             password: "topsecretpassword"
         service:
           type: ClusterIP

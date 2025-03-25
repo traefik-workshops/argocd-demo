@@ -8,8 +8,8 @@ spec:
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
-    chart: redis
-    targetRevision: 19.6.4
+    chart: redis-cluster
+    targetRevision: v10.2.9
     helm:
       releaseName: redis
       values: |
