@@ -1,0 +1,72 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/traefik-workshops/argocd-demo.git
+    targetRevision: HEAD
+    path: resources/security/keycloak/keycloak-operator
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tyk
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak-postgres
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: postgresql
+    targetRevision: v15.5.18
+    helm:
+      releaseName: keycloak-postgres
+      values: |
+        auth:
+          database: keycloak-db
+          postgresPassword: topsecretpassword
+        primary:
+          persistentVolumeClaimRetentionPolicy:
+            whenDeleted: Delete
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tyk
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/traefik-workshops/argocd-demo.git
+    targetRevision: HEAD
+    path: resources/security/keycloak/main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tyk
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -8,20 +8,26 @@ This repository contains a GitOps-based setup for Traefik API Gateway with obser
 .
 ├── apps/                          # ArgoCD Applications
 │   ├── api-gateway/               # API Gateway related applications
-│   ├── api-management/            # API Management related applications
-│   ├── apps/                      # Application deployments
-│   ├── observability/             # Observability stack applications
-│   │   ├── grafana/               # Grafana deployment
-│   │   ├── prometheus/            # Prometheus deployment
-│   │   └── tempo/                 # Tempo deployment
-│   ├── proxy/                     # Proxy configurations
-│   └── traefik.yaml               # Traefik deployment
-└── resources/                     # Kubernetes resources
-    ├── api-gateway/               # API Gateway resources
-    ├── api-management/            # API Management resources
-    ├── apps/                      # Application resources
-    └── proxy/                     # Proxy resources
-
+│   │   └── httpbin/              # HTTPBin API Gateway plans
+│   ├── api-management/           # API Management related applications
+│   │   └── httpbin/             # HTTPBin API Management configs
+│   ├── apps/                     # Application deployments
+│   │   └── httpbin/             # HTTPBin application
+│   ├── observability/           # Observability stack applications
+│   │   ├── grafana/            # Grafana deployment
+│   │   ├── prometheus/         # Prometheus deployment
+│   │   └── tempo/             # Tempo deployment
+│   ├── proxy/                  # Proxy configurations
+│   │   └── httpbin/           # HTTPBin proxy routes
+│   └── traefik/               # Traefik configurations
+│       ├── dashboard.yaml     # Traefik dashboard config
+│       ├── redis.yaml        # Redis deployment for Traefik
+│       └── traefik.yaml      # Main Traefik deployment
+└── resources/                # Kubernetes resources
+    ├── api-gateway/         # API Gateway resources
+    ├── api-management/      # API Management resources
+    ├── apps/               # Application resources
+    └── proxy/             # Proxy resources
 ```
 
 ## Prerequisites
@@ -75,9 +81,10 @@ This repository contains a GitOps-based setup for Traefik API Gateway with obser
 - **Grafana**: Visualization platform with pre-configured datasources for Prometheus and Tempo
 
 ### API Management
-- API Gateway configuration
+- API Gateway configuration with HTTPBin demo API
 - API Plans and access control
 - API documentation and portal
+- API catalog and subscription management
 
 ## Development
 
